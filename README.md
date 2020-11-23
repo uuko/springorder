@@ -1,5 +1,6 @@
 # 訂餐系統
 
+## swagger like this  http://localhost:8080/swagger-ui.html#
 
 後端API
 ---
