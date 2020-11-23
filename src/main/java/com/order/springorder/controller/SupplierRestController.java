@@ -52,7 +52,7 @@ public class SupplierRestController {
         }
     }
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    @RequestMapping(value= "/deleteSupplier/{id}", method=RequestMethod.DELETE)
+    @RequestMapping(value= "/deleteSupplier/{id}", method=RequestMethod.POST)
     public ResponseEntity deleteSupplier(@PathVariable(value="id") long id) {
         try {
            supplierService.deletSupplierById(id);

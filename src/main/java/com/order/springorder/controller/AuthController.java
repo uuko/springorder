@@ -1,10 +1,13 @@
 package com.order.springorder.controller;
 
+import com.order.springorder.config.WebSecurityConfig;
 import com.order.springorder.datamodel.*;
 import com.order.springorder.jwt.JwtUtils;
 import com.order.springorder.jwt.UserDetailsImpl;
+import com.order.springorder.model.BlackList;
 import com.order.springorder.model.Role;
 import com.order.springorder.model.User;
+import com.order.springorder.repository.BlackListRepository;
 import com.order.springorder.repository.RoleRepository;
 import com.order.springorder.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +17,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +41,9 @@ public class AuthController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    BlackListRepository blackListRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -116,5 +125,17 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @GetMapping("/signout")
+    public ResponseEntity<?> logoutUser(){
+        BlackList blackList=new BlackList();
+        blackList.setBlackToken( jwtUtils.getJwtToken());
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+        blackList.setExpiredDate(Timestamp.valueOf(sdf.format(jwtUtils.getExpiration())));
+        blackListRepository.save(blackList);
+       return ResponseEntity.ok(new MessageResponse("Ok : signOut -> ok"));
+
     }
 }
