@@ -4,7 +4,7 @@
 
 後端API
 ---
-#### 1.註冊 api/signup
+#### 1.註冊 api/signup @Post
 postman
 ```
 {
@@ -21,7 +21,7 @@ return
     "message": "User registered successfully!"
 }
 ```
-#### 2.登入 api/signin
+#### 2.登入 api/signin @Post
 postman
 ```
 {
@@ -44,7 +44,7 @@ return
 }
 ```
 
-##### 3. api/getSupplier
+##### 3. api/getSupplier @Get
 
 postman 
 
@@ -54,7 +54,7 @@ header Bearer token
 
 ex:Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhdXRoIiwiaWF0IjoxNjA2MTEyNTkzLCJleHAiOjE2MDYxOTg5OTN9.SFzBhbS9CPe_3RtOuh-9jj6flBZyTilMEwzs9c7TaBe2RgS2Ifera-8Yl63nlZ7NhD49EWo36MJCskE7AFN2Cg
 
-#### 4. api/postSupplier
+#### 4. api/postSupplier @Post
 header Bearer token
 ```
 {
@@ -72,7 +72,7 @@ header Bearer token
 }
 ```
 
-#### 5. api/putSupplier
+#### 5. api/putSupplier @Post
 header Bearer token
 ```
 {
@@ -90,20 +90,21 @@ header Bearer token
 }
 ```
 
-#### 6. api/deleteSupplier/{id}
+#### 6. api/deleteSupplier/{id} @Post
 header Bearer token
 @PathVariable(value="id") long id
 
-#### 7.api/getSuppByCondi
+#### 7.api/getSuppByCondi @Get 
 header Bearer token
 @RequestParam("org") String org, @RequestParam("suppNM") String suppNM
 
 此為模糊搜尋
 
-#### 8. api/getSupplierBySuppId
+#### 8. api/getSupplierBySuppId @Get
 header Bearer token
 @RequestParam("suppId") long suppId
 
+#### 9. api/auth/signout @Get
 
 
 
